@@ -1,7 +1,9 @@
 .mainDiv {
     text-align: center;
     font-family: Arial, sans-serif;
+    padding-top: 200px;
 }
 .header {
     font-size: 30px;
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
