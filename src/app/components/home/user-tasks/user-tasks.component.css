@@ -1,0 +1,24 @@
+.mat-table {
+    width: fit-content;
+    margin: 0 auto;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+  
+.mat-header-cell, .mat-cell {
+    padding-bottom: 10px;
+    padding-top: 10px;
+    padding-left: 50px;
+    padding-right: 50px;
+    
+    text-align: center;
+    font-family: Arial, sans-serif;
+
+    border-bottom: none;
+}
+  
+.mat-row {
+    background-color: #cccaca;
+}
+
+  
