@@ -1,5 +1,65 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" 
+rel="stylesheet">
+
+<div class="container cardcontainer">
+    <div>
+        <button class="btn" data-bs-toggle="modal" data-bs-target="#addTask">
+            <div class="d-flex">
+                <mat-icon class="" style="margin-bottom: 0px; margin-left: 0px;">add</mat-icon>
+                Add
+            </div>
+        </button>
+        <div class="modal fade" id="addTask">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Add Task</h1>
+                        <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#addTask"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col">Title</div>
+                            <div class="col">
+                                <input type="text" placeholder="does nothing so far">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">Discription</div>
+                            <div class="col">
+                                <input type="text" placeholder="does nothing so far">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-2" *ngFor="let row of dataSource">
+            <div class="card">
+                <h3 class="card-header">{{ row.Title }}</h3>
+                <div class="card-body">
+                    <p class="card-text" style="min-height: 135px;">{{ row.Description }}</p>
+                    <div class="row">
+                        <div class="col-5">
+                            <strong>Time Spent:</strong>
+                            <p>
+                            {{ row['Time spent'] }}
+                        </div>
+                        <div class="col text-end">
+                            <strong>Time spent this week:</strong> 
+                            <p>
+                            {{ row['Time for this week'] }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
 <div class= "mainDiv">
-    <h2>My Tasks</h2>
     <table mat-table [dataSource]="dataSource" class="mat-table">
         
         <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
@@ -12,8 +72,6 @@
         
     </table>
 
-    <p>
-    <p>
-
     <button class="button-1" (click) = "addRow()">add Row (temp button)</button>
 </div>
+-->
