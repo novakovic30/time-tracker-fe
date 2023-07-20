@@ -10,6 +10,9 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
+import { MatIconModule } from '@angular/material/icon';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +20,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { UserTasksComponent } from './components/home/user-tasks/user-tasks.component';
 import { TaskModalComponent } from './components/home/task-modal/task-modal.component';
 import { LoginComponent } from './components/home/login/log-in.component';
+import { TaskService } from './core/services/task.service';
 
 // Define the routes
 const routes: Routes = [
@@ -45,9 +49,12 @@ const routes: Routes = [
     MatSortModule,
     MatProgressSpinnerModule,
     RouterModule.forRoot(routes), // Register the routes
+    MatIconModule,
+    NgbModule,
+    BrowserAnimationsModule
   ],
   exports: [RouterModule],
-  providers: [],
+  providers: [TaskService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
