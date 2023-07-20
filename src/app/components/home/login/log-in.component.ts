@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { TaskService } from '../../../core/services/task.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent {
   errorMessage: string = '';
   loading: boolean = false; // Indicates if login process is ongoing
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private taskService: TaskService) {
     // Constructor
   }
 
@@ -33,6 +34,8 @@ export class LoginComponent {
       this.errorMessage = 'Login failed. Invalid credentials.';
     }).finally(() => {
       this.loading = false; // Hide loading indicator after login process
+      this.taskService.changeLoggedInStatus(true);
+
     });
   }
 }
