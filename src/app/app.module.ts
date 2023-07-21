@@ -21,6 +21,7 @@ import { UserTasksComponent } from './components/home/user-tasks/user-tasks.comp
 import { TaskModalComponent } from './components/home/task-modal/task-modal.component';
 import { LoginComponent } from './components/home/login/log-in.component';
 import { TaskService } from './core/services/task.service';
+import { NavBarComponent } from './components/home/nav-bar/nav-bar.component';
 
 // Define the routes
 const routes: Routes = [
@@ -35,7 +36,8 @@ const routes: Routes = [
     HomeComponent,
     UserTasksComponent,
     TaskModalComponent,
-    LoginComponent
+    LoginComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -10,19 +11,38 @@ export class UserTasksComponent implements OnInit {
   nextID: number = 2; // Initial value for ID of new rows
 
   dataSource: DataRow[] = [
-    {ID: '1', Title: 'Sample Title 1', Description: 'Sample Description 1', 'Time spent': '2 hours', 'Time for this week': '10 hours'},
-    {ID: '1', Title: 'Sample Title 1', Description: 'Sample Description 1', 'Time spent': '2 hours', 'Time for this week': '10 hours'},
-    {ID: '1', Title: 'Sample Title 1', Description: 'Sample Description 1', 'Time spent': '2 hours', 'Time for this week': '10 hours'},
-    {ID: '1', Title: 'Sample Title 1', Description: 'Sample Description 1', 'Time spent': '2 hours', 'Time for this week': '10 hours'},
-    {ID: '1', Title: 'Sample Title 1', Description: 'Sample Description 1', 'Time spent': '2 hours', 'Time for this week': '10 hours'},
-    {ID: '1', Title: 'Sample Title 1', Description: 'Sample Description 1', 'Time spent': '2 hours', 'Time for this week': '10 hours'},  
+    {ID: 1, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 2, TimeForThisWeek: 1},
+    {ID: 2, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 5, TimeForThisWeek: 1},
+    {ID: 3, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 8, TimeForThisWeek: 1},
+    {ID: 4, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 1,TimeForThisWeek: 1},
+    {ID: 5, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 1, TimeForThisWeek: 1},
+    {ID: 6, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 12, TimeForThisWeek: 1},
+    {ID: 7, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 0, TimeForThisWeek: 1}
   ];
+
+  title: string = "";
+  discription: string = "";
+
 
   constructor() { }
 
   ngOnInit(): void {
     //this.updateTable();
   }
+
+  addTask() {
+    const data: DataRow = {
+      ID: this.dataSource[this.dataSource.length - 1].ID + 1, 
+      Title: this.title, 
+      Description: this.discription, 
+      TimeSpent: 0, 
+      TimeForThisWeek: 0
+    };
+    this.dataSource = [...this.dataSource, data];
+
+    //add to database
+  }
+
 
   /*  **functions for the table**
 
@@ -57,9 +77,9 @@ export class UserTasksComponent implements OnInit {
   */
 }
 interface DataRow {
-  ID: string;
+  ID: number;
   Title: string;
   Description: string;
-  'Time spent': string;
-  'Time for this week': string;
+  TimeSpent: number;
+  TimeForThisWeek: number;
 }

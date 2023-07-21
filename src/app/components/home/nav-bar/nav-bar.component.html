@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light" style="box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+    <div class="container-fluid">
+        <a class="navbar-brand me-5">
+            <h1>Timetracker</h1>
+        </a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="isLoggedIn">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" style="font-size: 25px;" (click)="redirectToTasks()">Tasks</a>
+                </li>
+            </ul>
+            <div *ngIf="!isLoggedIn" class="d-flex ms-auto">
+                <button class="btn btn-outline-primary me-3" (click)="redirectToLogin()">Login</button>
+                <button class="btn btn-primary" (click)="redirectToRegister">Register</button>
+            </div>
+            <div *ngIf="isLoggedIn" class="d-flex">
+                <button class="btn btn-outline-danger" (click)="redirectToLogout()">Logout</button>
+            </div>
+        </div>
+    </div>
+</nav>

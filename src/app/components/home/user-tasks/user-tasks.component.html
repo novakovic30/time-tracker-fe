@@ -18,15 +18,22 @@ rel="stylesheet">
                     </div>
                     <div class="modal-body">
                         <div class="row" style="margin-bottom: 10px;">
-                            <div class="col">Title</div>
+                            <div class="col-3"><h5 style="margin-top: 10px;">Title:</h5></div>
                             <div class="col">
-                                <input type="text" placeholder="does nothing so far">
+                                <input required type="text" id="TitleTextField" class="form-control form-control-lg" [(ngModel)]="title"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 20px;">
+                            <div class="col-3"><h5 style="margin-top: 10px;">Discription:</h5></div>
+                            <div class="col">
+                                <textarea type="text" id="DiscriptionTextArea" class="form-control form-control-lg" rows="3" [(ngModel)]="discription"></textarea>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col">Discription</div>
-                            <div class="col">
-                                <input type="text" placeholder="does nothing so far">
+                            <div class="col float-end">
+                                <div class="float-end" >
+                                    <button class="btn" data-bs-dismiss="modal" (click)="addTask()" style="min-width: 80px;">Add</button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -36,7 +43,7 @@ rel="stylesheet">
     </div>
     <div class="row">
         <div class="col-2" *ngFor="let row of dataSource">
-            <div class="card">
+            <div class="card" style="margin-bottom: 25px;">
                 <h3 class="card-header">{{ row.Title }}</h3>
                 <div class="card-body">
                     <p class="card-text" style="min-height: 135px;">{{ row.Description }}</p>
@@ -44,12 +51,12 @@ rel="stylesheet">
                         <div class="col-5">
                             <strong>Time Spent:</strong>
                             <p>
-                            {{ row['Time spent'] }}
+                            {{ row.TimeSpent }}
                         </div>
                         <div class="col text-end">
                             <strong>Time spent this week:</strong> 
                             <p>
-                            {{ row['Time for this week'] }}
+                            {{ row.TimeForThisWeek }}
                         </div>
                     </div>
                 </div>
