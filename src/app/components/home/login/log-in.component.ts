@@ -22,10 +22,10 @@ export class LoginComponent {
 
     // Simulate the login process with a delay using a Promise
     return new Promise<void>((resolve, reject) => {
-      // In einer tatsächlichen Backend-Implementierung sollte die Authentifizierung hier erfolgen.
-      // Fügen Sie hier die entsprechende Logik für die Überprüfung der Anmeldeinformationen hinzu.
+      // In an actual backend implementation, authentication should happen here.
+      // Add the appropriate logic for credential verification here.
 
-      // Hier simulieren wir einen erfolgreichen Login, unabhängig von den Anmeldeinformationen.
+      // Here we simulate a successful login, regardless of the credentials.
       setTimeout(() => resolve(), 1500);
     }).then(() => {
       this.errorMessage = ''; // Reset error message on successful login
