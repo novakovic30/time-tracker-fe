@@ -23,7 +23,6 @@ export class UserTasksComponent implements OnInit {
   title: string = "";
   discription: string = "";
 
-
   constructor() { }
 
   ngOnInit(): void {
