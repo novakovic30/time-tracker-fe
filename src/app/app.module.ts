@@ -22,6 +22,8 @@ import { TaskModalComponent } from './components/home/task-modal/task-modal.comp
 import { LoginComponent } from './components/home/login/log-in.component';
 import { TaskService } from './core/services/task.service';
 import { NavBarComponent } from './components/home/nav-bar/nav-bar.component';
+import { UserListComponent } from './components/home/user-list/user-list.component';
+import { UserService } from './core/services/user.service';
 
 // Define the routes
 const routes: Routes = [
@@ -37,7 +39,8 @@ const routes: Routes = [
     UserTasksComponent,
     TaskModalComponent,
     LoginComponent,
-    NavBarComponent
+    NavBarComponent,
+    UserListComponent
   ],
   imports: [
     BrowserModule,
@@ -53,7 +56,8 @@ const routes: Routes = [
     RouterModule.forRoot(routes), // Register the routes
     MatIconModule,
     NgbModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    UserService
   ],
   exports: [RouterModule],
   providers: [TaskService],
