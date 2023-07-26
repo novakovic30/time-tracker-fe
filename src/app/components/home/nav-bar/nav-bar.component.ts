@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TaskService } from '../../../core/services/task.service';
+import { VariablesService } from '../../../core/services/variables.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 
@@ -9,13 +9,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
+
   opened: boolean = true;
   isLoggedIn: boolean = true;
 
-  constructor(private modalService: NgbModal, private router: Router, private taskService: TaskService) {}
+  constructor(private modalService: NgbModal, private router: Router, private variablesService: VariablesService) {
+  }
 
   ngOnInit(): void {
-    this.taskService.loggedInChanged.subscribe((loggedIn: boolean) => {
+    this.variablesService.loggedInChanged.subscribe((loggedIn: boolean) => {
       this.isLoggedIn = loggedIn;
     });
   }

@@ -1,41 +1,51 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { VariablesService } from '../../../core/services/variables.service';
+import { UserService } from 'src/app/core/services/user.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './log-in.component.html',
   styleUrls: ['./log-in.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
   username: string = '';
   password: string = '';
   errorMessage: string = '';
   loading: boolean = false; // Indicates if login process is ongoing
+  loginSuccess: boolean = false;
 
-  constructor(private router: Router, private variablesService: VariablesService) {
+  constructor(private router: Router, private variablesService: VariablesService, private userService: UserService) {
     // Constructor
   }
 
-  async onSubmit() {
-    this.loading = true; // Show loading indicator
-
-    // Simulate the login process with a delay using a Promise
-    return new Promise<void>((resolve, reject) => {
-      // In an actual backend implementation, authentication should happen here.
-      // Add the appropriate logic for credential verification here.
-
-      // Here we simulate a successful login, regardless of the credentials.
-      setTimeout(() => resolve(), 1500);
-    }).then(() => {
-      this.errorMessage = ''; // Reset error message on successful login
-      this.router.navigate(['/user-tasks']); // Navigate to UserTasksComponent on successful login
-    }).catch(() => {
-      this.errorMessage = 'Login failed. Invalid credentials.';
-    }).finally(() => {
-      this.loading = false; // Hide loading indicator after login process
-      this.variablesService.changeLoggedInStatus(true);
-
-    });
+  ngOnInit(): void {
+    
   }
+
+  async onSubmit() {
+    this.loading = true; 
+
+    this.userService.checkCredentials(this.username, this.password)
+      .subscribe({
+        next: (response) => {
+          if (response) {
+            // Authentication success
+            this.errorMessage = '';
+            this.router.navigate(['/user-tasks']);
+          } else {
+            // Authentication failed
+            this.errorMessage = 'Login failed. Invalid credentials.';
+          }
+          this.loading = false; // Hide loading indicator after login process
+          this.variablesService.changeLoggedInStatus(true);
+        },
+        error: (error) => {
+          console.error(error);
+          this.errorMessage = 'An error occurred during login. Please try again later.';
+          this.loading = false; // Hide loading indicator after login process
+          this.variablesService.changeLoggedInStatus(false);
+        }
+      });
+    }
 }

@@ -4,16 +4,5 @@ import { Injectable, EventEmitter } from '@angular/core';
   providedIn: 'root'
 })
 export class TaskService {
-  public loggedInChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
-  public darkThemeChanged: EventEmitter<boolean> = new EventEmitter<boolean>();
-
   constructor() { }
-
-  changeLoggedInStatus(loggedIn: boolean): void {
-    this.loggedInChanged.emit(loggedIn);
-  }
-
-  changeTheme(darkTheme: boolean): void {
-    this.darkThemeChanged.emit(darkTheme);
-  }
 }
