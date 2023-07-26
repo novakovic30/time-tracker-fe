@@ -1,49 +1,48 @@
 <nav class="navbar navbar-expand-sm bg-light" style="box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
     <div class="container-fluid">
-        <a class="navbar-brand me-5">
-            <h1>Timetracker</h1>
-        </a>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="isLoggedIn">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" style="font-size: 25px;" (click)="redirectToTasks()">Tasks</a>
-                </li>
-            </ul>
-            <div *ngIf="!isLoggedIn" class="d-flex ms-auto">
-                <button class="btn btn-outline-primary me-3" (click)="redirectToLogin()">Login</button>
-                <button class="btn btn-primary" (click)="redirectToRegister">Register</button>
-            </div>
-            <div *ngIf="isLoggedIn" class="d-flex">
-                <div class="me-3">
-                    <img class="rounded-circle dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
-                        src="https://cdn.discordapp.com/attachments/727222609799938091/1132989780674748526/b7856ba4b9670f426d8b347b3fc20a52.403x363x1.jpg" height="50px" width="50px"/>
-                    
-                    <div class="dropdown-menu dropdown-menu-end me-3">
-                        <div class="row justify-content-center">
-                            <div class="col-6">
-                                <img class="rounded-circle dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
-                                    src="https://cdn.discordapp.com/attachments/727222609799938091/1132989780674748526/b7856ba4b9670f426d8b347b3fc20a52.403x363x1.jpg" height="120" width="120px"
-                                    style="box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);"/>
-                            </div>
-                        </div>
-                        <div class="dropdown-divider"></div>
-                        <div class="row ms-1">
-                            <h3>Hias Hawara</h3>
-                        </div>
-                        <div class="row ms-1">
-                            <h6>hias.hawara@ka-bro.cum</h6>
-                        </div>
-                        <div class="dropdown-divider"></div>
-                        <button class="dropdown-item" type="button">Settings</button>
-                        <button class="dropdown-item" type="button">Something else here</button>
-                        <button class="dropdown-item" type="button" (click)="redirectToLogout()">Logout</button>
-                    </div>
-                </div>
-
-
-            </div>
-
-
+      <a class="navbar-brand me-5">
+        <h1>Timetracker</h1>
+      </a>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="isLoggedIn">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" style="font-size: 25px;" (click)="redirectToTasks()">Tasks</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" style="font-size: 25px; margin-left: 20px;" (click)="redirectToUserList()">User List</a>
+          </li>
+        </ul>
+        <div *ngIf="!isLoggedIn" class="d-flex ms-auto">
+          <button class="btn btn-outline-primary me-3" (click)="redirectToLogin()">Login</button>
+          <button class="btn btn-primary" (click)="redirectToRegister()">Register</button>
         </div>
+        <div *ngIf="isLoggedIn" class="d-flex">
+          <div class="me-3">
+            <img class="rounded-circle dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+              src="https://cdn.discordapp.com/attachments/727222609799938091/1132989780674748526/b7856ba4b9670f426d8b347b3fc20a52.403x363x1.jpg" height="50px" width="50px"/>
+            
+            <div class="dropdown-menu dropdown-menu-end me-3">
+              <div class="row justify-content-center">
+                <div class="col-6">
+                  <img class="rounded-circle dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" 
+                    src="https://cdn.discordapp.com/attachments/727222609799938091/1132989780674748526/b7856ba4b9670f426d8b347b3fc20a52.403x363x1.jpg" height="120" width="120px"
+                    style="box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);"/>
+                </div>
+              </div>
+              <div class="dropdown-divider"></div>
+              <div class="row ms-1">
+                <h3>Hias Hawara</h3>
+              </div>
+              <div class="row ms-1">
+                <h6>hias.hawara@ka-bro.cum</h6>
+              </div>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item" type="button">Settings</button>
+              <button class="dropdown-item" type="button">Something else here</button>
+              <button class="dropdown-item" type="button" (click)="redirectToLogout()">Logout</button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-</nav>
+  </nav>  

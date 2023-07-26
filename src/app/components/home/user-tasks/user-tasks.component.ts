@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { UserService } from 'src/app/core/services/user.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-user-tasks',
@@ -23,10 +26,22 @@ export class UserTasksComponent implements OnInit {
   title: string = "";
   discription: string = "";
 
-  constructor() { }
+
+  users: User[] = [];
+
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    //this.updateTable();
+    this.userService.getAllUsers()
+    .subscribe({
+      next: (users) => {
+        this.users = users;
+        console.log(users);
+      },
+      error: (response) => {
+        console.log(response);
+      }
+    })
   }
 
   addTask() {
@@ -42,10 +57,12 @@ export class UserTasksComponent implements OnInit {
     //add to database
   }
 
+  
 
   /*  **functions for the table**
 
-  //displayedColumns: string[] = ["ID", "Title", "Description", "Time spent", "Time for this week"];
+  dataSource2: MatTableDataSource<any> = new MatTableDataSource(this.users);
+  displayedColumns: string[] = ["id", "firstName", "lastName", "email", "password"];
   //dataSource!: MatTableDataSource<any>;
 
   addRow() {

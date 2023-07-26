@@ -23,12 +23,12 @@ import { LoginComponent } from './components/home/login/log-in.component';
 import { TaskService } from './core/services/task.service';
 import { NavBarComponent } from './components/home/nav-bar/nav-bar.component';
 import { UserListComponent } from './components/home/user-list/user-list.component';
-import { UserService } from './core/services/user.service';
 
 // Define the routes
 const routes: Routes = [
   { path: '', component: LoginComponent }, // Set LoginComponent as the default route
   { path: 'user-tasks', component: UserTasksComponent },
+  { path: 'user-list', component: UserListComponent },
   // Add other routes if needed
 ];
 
@@ -56,8 +56,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes), // Register the routes
     MatIconModule,
     NgbModule,
-    BrowserAnimationsModule,
-    UserService
+    BrowserAnimationsModule
   ],
   exports: [RouterModule],
   providers: [TaskService],

@@ -9,12 +9,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
-
   opened: boolean = true;
   isLoggedIn: boolean = true;
 
-  constructor(private modalService: NgbModal, private router: Router, private taskService: TaskService) {
-  }
+  constructor(private modalService: NgbModal, private router: Router, private taskService: TaskService) {}
 
   ngOnInit(): void {
     this.taskService.loggedInChanged.subscribe((loggedIn: boolean) => {
@@ -29,10 +27,12 @@ export class NavBarComponent implements OnInit {
   redirectToLogin(): void {
     this.router.navigate(['/']);
   }
+
   redirectToRegister(): void {
     //doesnt exist yet
     this.router.navigate(['/register']);
   }
+
   redirectToLogout(): void {
     this.isLoggedIn = false;
     this.router.navigate(['/']);
@@ -40,5 +40,9 @@ export class NavBarComponent implements OnInit {
 
   redirectToTasks(): void {
     this.router.navigate(['/user-tasks']);
+  }
+
+  redirectToUserList(): void {
+    this.router.navigate(['/user-list']);
   }
 }
