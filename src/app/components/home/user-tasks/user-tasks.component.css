@@ -115,3 +115,13 @@ h2 {
   background-color: #065dd8;
   transform: translateY(-2px);
 }
+
+.delete-icon:hover {
+  fill: rgb(255, 164, 164);
+  cursor: pointer;
+}
+
+.red-bg-hover:hover {
+  background-color: rgb(255, 76, 76);
+  color: white; /* Optional: Set text color to white for better visibility */
+}

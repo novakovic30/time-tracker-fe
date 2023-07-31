@@ -24,8 +24,8 @@ export class UserService {
     return this.http.post<User>(`${this.baseUrl}/users`, user);
   }
 
-  checkCredentials(email: string, password: string): Observable<boolean> {
+  checkCredentials(email: string, password: string): Observable<User> {
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post<boolean>(this.baseUrl + "/users/CheckCredentials/", {email, password}, { headers });
+    return this.http.post<User>(this.baseUrl + "/users/CheckCredentials/", {email, password}, { headers });
   }
 }

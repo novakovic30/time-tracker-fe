@@ -29,16 +29,19 @@ export class LoginComponent implements OnInit{
     this.userService.checkCredentials(this.username, this.password)
       .subscribe({
         next: (response) => {
-          if (response) {
+          if (response!=null) {
             // Authentication success
+            this.variablesService.changeCurrentUser(response);
+            this.variablesService.changeLoggedInStatus(true);
             this.errorMessage = '';
             this.router.navigate(['/user-tasks']);
           } else {
             // Authentication failed
             this.errorMessage = 'Login failed. Invalid credentials.';
+            this.variablesService.changeLoggedInStatus(false);
           }
           this.loading = false; // Hide loading indicator after login process
-          this.variablesService.changeLoggedInStatus(true);
+
         },
         error: (error) => {
           console.error(error);
@@ -47,5 +50,9 @@ export class LoginComponent implements OnInit{
           this.variablesService.changeLoggedInStatus(false);
         }
       });
-    }
+  }
+
+  async changeUser() {
+
+  }
 }

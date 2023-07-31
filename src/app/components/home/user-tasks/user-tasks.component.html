@@ -42,21 +42,30 @@ rel="stylesheet">
         </div>
     </div>
     <div class="row">
-        <div class="col-2" *ngFor="let row of dataSource">
+        <div class="col-2" *ngFor="let task of tasks">
             <div class="card" style="margin-bottom: 25px;">
-                <h3 class="card-header">{{ row.Title }}</h3>
+                <h3 class="card-header d-flex justify-content-between">
+                    {{ task.title }}
+                    <div class="dropdown">
+                        <i class="bi bi-three-dots-vertical" id="optionsDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
+                        <ul class="dropdown-menu" aria-labelledby="optionsDropdown">
+                            <li><a class="dropdown-item" (click)="updateTask()">Edit</a></li>
+                            <li><a class="dropdown-item red-bg-hover" (click)="deleteTask(task.id)">Delete</a></li>
+                        </ul>
+                    </div>
+                </h3>
                 <div class="card-body">
-                    <p class="card-text" style="min-height: 135px;">{{ row.Description }}</p>
+                    <p class="card-text" style="min-height: 135px;">{{ task.description }}</p>
                     <div class="row">
                         <div class="col-5">
                             <strong>Time Spent:</strong>
                             <p>
-                            {{ row.TimeSpent }} hours
+                            {{ task.totalHours }} hours
                         </div>
                         <div class="col text-end">
                             <strong>Time for this week:</strong> 
                             <p>
-                            {{ row.TimeForThisWeek }} hours
+                            {{ task.hours }} hours
                         </div>
                     </div>
                 </div>

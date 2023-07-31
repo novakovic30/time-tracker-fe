@@ -1,11 +1,11 @@
 export interface Task {
     id: number,
-    Title: string,
-    Description: string,
-    Created: Date,
-    Updated: Date,
-    Status: boolean,
-    TotalHours: number,
-    Hours: number,
-    UserId: number
+    title: string,
+    description: string,
+    created: Date,
+    updated: Date,
+    status: boolean,
+    totalHours: number,
+    hours: number,
+    userId: number
 }

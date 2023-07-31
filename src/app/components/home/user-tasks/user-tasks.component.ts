@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
+import { TaskService } from 'src/app/core/services/task.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { VariablesService } from 'src/app/core/services/variables.service';
+import { Task } from 'src/app/models/task.model';
 import { User } from 'src/app/models/user.model';
 
 @Component({
@@ -10,53 +14,92 @@ import { User } from 'src/app/models/user.model';
   templateUrl: './user-tasks.component.html',
   styleUrls: ['./user-tasks.component.css']
 })
-export class UserTasksComponent implements OnInit {
+export class UserTasksComponent implements OnInit, OnDestroy {
   nextID: number = 2; // Initial value for ID of new rows
 
-  dataSource: DataRow[] = [
-    {ID: 1, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 2, TimeForThisWeek: 1},
-    {ID: 2, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 5, TimeForThisWeek: 1},
-    {ID: 3, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 8, TimeForThisWeek: 1},
-    {ID: 4, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 1,TimeForThisWeek: 1},
-    {ID: 5, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 1, TimeForThisWeek: 1},
-    {ID: 6, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 12, TimeForThisWeek: 1},
-    {ID: 7, Title: 'Sample Title 1', Description: 'Sample Description 1', TimeSpent: 0, TimeForThisWeek: 1}
+  tasks: Task[] = [
+    {id: 1, title: 'Sample Title 1', description: 'Sample Description 1', created: new Date(), updated: new Date(), status: true, totalHours: 2, hours: 1, userId: 1}
   ];
 
   title: string = "";
   discription: string = "";
 
+  currentUser!: User;
+  private currentUserSubscription!: Subscription;
 
   users: User[] = [];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private taskService: TaskService, private variablesService: VariablesService) { }
 
   ngOnInit(): void {
-    this.userService.getAllUsers()
-    .subscribe({
+    console.log(this.tasks);
+
+    this.currentUserSubscription = this.variablesService.currentUserChanged.subscribe(
+      (user: User | null) => {
+        if(user !== null) {
+          this.currentUser = user;
+          this.updateTasks();
+        }
+    });
+
+    this.userService.getAllUsers().subscribe({
       next: (users) => {
         this.users = users;
         console.log(users);
+        console.log(this.currentUser); // Should have the latest currentUser value if it's been set
       },
-      error: (response) => {
-        console.log(response);
+      error: (error) => {
+        console.log(error);
       }
-    })
+    });
   }
+
+  async updateTasks() {
+    if (!this.currentUser) {
+      console.log("Current user is not available or does not have an id.");
+      return;
+    }
+    console.log(this.currentUser);
+    this.taskService.getTasksByUserID(this.currentUser.id).subscribe({
+      next: (response) => {
+        this.tasks = response;
+        console.log(this.tasks);
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
+
+    console.log(this.tasks);
+  }
+
 
   addTask() {
-    const data: DataRow = {
-      ID: this.dataSource[this.dataSource.length - 1].ID + 1, 
-      Title: this.title, 
-      Description: this.discription, 
-      TimeSpent: 0, 
-      TimeForThisWeek: 0
-    };
-    this.dataSource = [...this.dataSource, data];
-
-    //add to database
+    this.taskService.addTask(this.title, this.discription, new Date(), new Date(), true, 0, 0, this.currentUser.id).subscribe({
+      next: (response) => {
+        this.updateTasks();
+        console.log("yes");
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
 
+  deleteTask(Id: number) {
+    this.taskService.deleteTask(Id).subscribe(
+      () => {
+        this.updateTasks();
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  updateTask() {
+    
+  }
   
 
   /*  **functions for the table**
@@ -91,11 +134,11 @@ export class UserTasksComponent implements OnInit {
     this.dataSource = new MatTableDataSource(data);
   }
   */
-}
-interface DataRow {
-  ID: number;
-  Title: string;
-  Description: string;
-  TimeSpent: number;
-  TimeForThisWeek: number;
+
+  ngOnDestroy(): void {
+    // Don't forget to unsubscribe to avoid memory leaks
+    if (this.currentUserSubscription) {
+      this.currentUserSubscription.unsubscribe();
+    }
+  }
 }
