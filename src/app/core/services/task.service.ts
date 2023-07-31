@@ -21,12 +21,16 @@ export class TaskService {
   }
 
   addTask(title: string, description: string, created: Date, updated: Date, status: boolean, totalHours: number, hours: number, userId: number): Observable<any> {
-    console.log("task added!");
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
     return this.http.post<any>(this.baseUrl+"/tasks", {title, description, created, updated, status, totalHours, hours, userId}, {headers});
   }
 
   deleteTask(id: number): Observable<any> {
     return this.http.get<any>(`${this.baseUrl}/tasks/delete/${id}`);
+  }
+
+  updateTask(id: number, title: string, description: string, updated: Date, status: boolean, totalHours: number, hours: number, userId: number): Observable<any> {
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    return this.http.post<any>(this.baseUrl+"/tasks/update/"+id, {title, description, updated, status, totalHours, hours, userId}, {headers});
   }
 }

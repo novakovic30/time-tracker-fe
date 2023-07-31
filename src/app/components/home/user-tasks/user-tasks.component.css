@@ -125,3 +125,8 @@ h2 {
   background-color: rgb(255, 76, 76);
   color: white; /* Optional: Set text color to white for better visibility */
 }
+
+.big-checkbox {
+  width: 25px; 
+  height: 25px;
+}

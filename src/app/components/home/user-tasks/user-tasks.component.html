@@ -3,12 +3,25 @@ rel="stylesheet">
 
 <div class="container cardcontainer">
     <div>
-        <button class="btn" data-bs-toggle="modal" data-bs-target="#addTask">
-            <div class="d-flex">
-                <mat-icon class="" style="margin-bottom: 0px; margin-left: 0px;">add</mat-icon>
-                Add
+        <!--add task button + detailed view checkbox-->
+        <div class="d-flex">
+            <button class="btn" data-bs-toggle="modal" data-bs-target="#addTask"
+                (click)="title=''; description=''; timeSpent=0; timeSpentThisWeek=0; TaskId=-1">
+                <div class="d-flex">
+                    <mat-icon class="" style="margin-bottom: 0px; margin-left: 0px;">add</mat-icon>
+                    Add
+                </div>
+            </button>
+            <div class="form-check ms-4 mt-2">
+                <input class="form-check-input big-checkbox" type="checkbox" id="flexCheckDefault" (change)="true" #detailedViewCheckbox>
+                <label class="form-check-label ms-2" for="flexCheckDefault">
+                    <h4>Detailed View</h4>
+                </label>
             </div>
-        </button>
+        </div>
+        
+
+        <!--popup window for add task-->
         <div class="modal fade" id="addTask">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -23,15 +36,37 @@ rel="stylesheet">
                                 <input required type="text" id="TitleTextField" class="form-control form-control-lg" [(ngModel)]="title"/>
                             </div>
                         </div>
-                        <div class="row" style="margin-bottom: 20px;">
+                        <div class="row" style="margin-bottom: 8px;">
                             <div class="col-3"><h5 style="margin-top: 10px;">Discription:</h5></div>
                             <div class="col">
-                                <textarea type="text" id="DiscriptionTextArea" class="form-control form-control-lg" rows="3" [(ngModel)]="discription"></textarea>
+                                <textarea type="text" id="DiscriptionTextArea" class="form-control form-control-lg" rows="3" [(ngModel)]="description"></textarea>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col float-end">
-                                <div class="float-end" >
+                        <!--only show if advanced is enabled-->
+                        <div *ngIf="advancedCheckbox.checked" class="row" style="margin-bottom: 6px;">
+                            <div class="col-3"><h5>Time spent:</h5></div>
+                            <div class="col">
+                                <input required type="number" id="TitleTextField" class="form-control form-control-lg" style="margin-top: 2px;" [valueAsNumber]="0" [(ngModel)]="timeSpent"/>
+                            </div>
+                        </div>
+                        <div *ngIf="advancedCheckbox.checked" class="row" style="margin-bottom: 8px;">
+                            <div class="col-3"><h5>Time spent this week:</h5></div>
+                            <div class="col">
+                                <input required type="number" id="TitleTextField" class="form-control form-control-lg" style="margin-top: 2px;" [valueAsNumber]="0" [(ngModel)]="timeSpentThisWeek"/>
+                            </div>
+                        </div>
+                        <!---->
+                        <div class="row align-items-stretch">
+                            <div class="col d-flex align-items-end mb-3">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="flexCheckDefault" (change)="true" #advancedCheckbox>
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Advanced
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col d-flex justify-content-end align-items-end">
+                                <div class="" >
                                     <button class="btn" data-bs-dismiss="modal" (click)="addTask()" style="min-width: 80px;">Add</button>
                                 </div>
                             </div>
@@ -40,8 +75,54 @@ rel="stylesheet">
                 </div>
             </div>
         </div>
+
+        <!--popup window for edit task-->
+        <div class="modal fade" id="updateTask">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1>Edit Task</h1>
+                        <button class="btn-close" data-bs-dismiss="modal" data-bs-target="#updateTask"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="margin-bottom: 10px;">
+                            <div class="col-3"><h5 style="margin-top: 10px;">Title:</h5></div>
+                            <div class="col">
+                                <input required type="text" id="TitleTextField" class="form-control form-control-lg" [(ngModel)]="title"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 8px;">
+                            <div class="col-3"><h5 style="margin-top: 10px;">Discription:</h5></div>
+                            <div class="col">
+                                <textarea type="text" id="DiscriptionTextArea" class="form-control form-control-lg" rows="3" [(ngModel)]="description"></textarea>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 6px;">
+                            <div class="col-3"><h5>Time spent:</h5></div>
+                            <div class="col">
+                                <input required type="number" id="TitleTextField" class="form-control form-control-lg" style="margin-top: 2px;" [valueAsNumber]="0" [(ngModel)]="timeSpent"/>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-bottom: 8px;">
+                            <div class="col-3"><h5>Time spent this week:</h5></div>
+                            <div class="col">
+                                <input required type="number" id="TitleTextField" class="form-control form-control-lg" style="margin-top: 2px;" [valueAsNumber]="0" [(ngModel)]="timeSpentThisWeek"/>
+                            </div>
+                        </div>
+                        <div class="row align-items-stretch">
+                            <div class="col float-end">
+                                <div class="float-end" >
+                                    <button class="btn" data-bs-dismiss="modal" (click)="updateTask()" style="min-width: 80px;">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row">
+    <!--cards which hold the tasks-->
+    <div class="row" *ngIf="!detailedViewCheckbox.checked">
         <div class="col-2" *ngFor="let task of tasks">
             <div class="card" style="margin-bottom: 25px;">
                 <h3 class="card-header d-flex justify-content-between">
@@ -49,7 +130,8 @@ rel="stylesheet">
                     <div class="dropdown">
                         <i class="bi bi-three-dots-vertical" id="optionsDropdown" data-bs-toggle="dropdown" aria-expanded="false"></i>
                         <ul class="dropdown-menu" aria-labelledby="optionsDropdown">
-                            <li><a class="dropdown-item" (click)="updateTask()">Edit</a></li>
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#updateTask" 
+                                    (click)="title=task.title; description=task.description; timeSpent=task.totalHours; timeSpentThisWeek=task.hours; TaskId=task.id">Edit</a></li>
                             <li><a class="dropdown-item red-bg-hover" (click)="deleteTask(task.id)">Delete</a></li>
                         </ul>
                     </div>
@@ -72,7 +154,43 @@ rel="stylesheet">
             </div>
         </div>
     </div>
+    <div class="row" *ngIf="detailedViewCheckbox.checked">    
+        <div *ngIf="detailedViewCheckbox.checked">
+            <div class="table-responsive">
+                design not done yet
+                <table class="table table-bordered table-striped">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Created</th>
+                            <th>Updated</th>
+                            <th>Status</th>
+                            <th>Time Spent</th>
+                            <th>Time Spent This Week</th>
+                            <th>User ID</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let task of tasks">
+                            <td>{{ task.id }}</td>
+                            <td>{{ task.title }}</td>
+                            <td>{{ task.description }}</td>
+                            <td>{{ task.created | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+                            <td>{{ task.updated | date: 'yyyy-MM-dd HH:mm:ss' }}</td>
+                            <td>{{ task.status ? 'Active' : 'Inactive' }}</td>
+                            <td>{{ task.totalHours }} hours</td>
+                            <td>{{ task.hours }} hours</td>
+                            <td>{{ task.userId }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
+
 <!--
 <div class= "mainDiv">
     <table mat-table [dataSource]="dataSource" class="mat-table">

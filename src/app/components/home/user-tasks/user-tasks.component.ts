@@ -21,8 +21,11 @@ export class UserTasksComponent implements OnInit, OnDestroy {
     {id: 1, title: 'Sample Title 1', description: 'Sample Description 1', created: new Date(), updated: new Date(), status: true, totalHours: 2, hours: 1, userId: 1}
   ];
 
+  TaskId: number = -1;
   title: string = "";
-  discription: string = "";
+  description: string = "";
+  timeSpent: number = 0;
+  timeSpentThisWeek: number = 0;
 
   currentUser!: User;
   private currentUserSubscription!: Subscription;
@@ -75,7 +78,7 @@ export class UserTasksComponent implements OnInit, OnDestroy {
 
 
   addTask() {
-    this.taskService.addTask(this.title, this.discription, new Date(), new Date(), true, 0, 0, this.currentUser.id).subscribe({
+    this.taskService.addTask(this.title, this.description, new Date(), new Date(), true, this.timeSpent, this.timeSpentThisWeek, this.currentUser.id).subscribe({
       next: (response) => {
         this.updateTasks();
         console.log("yes");
@@ -87,18 +90,25 @@ export class UserTasksComponent implements OnInit, OnDestroy {
   }
 
   deleteTask(Id: number) {
-    this.taskService.deleteTask(Id).subscribe(
-      () => {
+    this.taskService.deleteTask(Id).subscribe({
+      next: (response) => {
         this.updateTasks();
       },
-      (error) => {
+      error: (error) => {
         console.log(error);
       }
-    );
+    });
   }
 
   updateTask() {
-    
+    this.taskService.updateTask(this.TaskId, this.title, this.description, new Date(), true, this.timeSpent, this.timeSpentThisWeek, this.currentUser.id).subscribe({
+      next: (response) => {
+        this.updateTasks();
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    });
   }
   
 
