@@ -23,12 +23,14 @@ import { LoginComponent } from './components/home/login/log-in.component';
 import { TaskService } from './core/services/task.service';
 import { NavBarComponent } from './components/home/nav-bar/nav-bar.component';
 import { UserListComponent } from './components/home/user-list/user-list.component';
+import { AddUserComponent } from './components/home/add-user/add-user.component';
 
 // Define the routes
 const routes: Routes = [
   { path: '', component: LoginComponent }, // Set LoginComponent as the default route
   { path: 'user-tasks', component: UserTasksComponent },
   { path: 'user-list', component: UserListComponent },
+  { path: 'add-user', component: AddUserComponent },
   // Add other routes if needed
 ];
 
@@ -40,7 +42,8 @@ const routes: Routes = [
     TaskModalComponent,
     LoginComponent,
     NavBarComponent,
-    UserListComponent
+    UserListComponent,
+    AddUserComponent
   ],
   imports: [
     BrowserModule,

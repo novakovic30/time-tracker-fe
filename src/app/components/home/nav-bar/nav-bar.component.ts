@@ -45,8 +45,7 @@ export class NavBarComponent implements OnInit {
   }
 
   redirectToRegister(): void {
-    //doesnt exist yet
-    this.router.navigate(['/register']);
+    this.router.navigate(['/add-user']);
   }
 
   redirectToLogout(): void {

@@ -1,0 +1,28 @@
+<div class="container">
+    <h2>Registration</h2>
+    <form (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="firstName" class="form-label">First Name</label>
+        <input type="text" id="firstName" class="form-control" [(ngModel)]="user.firstName" name="firstName" required>
+        <div *ngIf="firstNameHasError" class="error-message">First name is required.</div>
+      </div>
+      <div class="form-group">
+        <label for="lastName" class="form-label">Last Name</label>
+        <input type="text" id="lastName" class="form-control" [(ngModel)]="user.lastName" name="lastName" required>
+        <div *ngIf="lastNameHasError" class="error-message">Last name is required.</div>
+      </div>
+      <div class="form-group">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" class="form-control" [(ngModel)]="user.email" name="email" required>
+        <div *ngIf="emailHasError" class="error-message">Invalid email format.</div>
+      </div>
+      <div class="form-group">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" id="password" class="form-control" [(ngModel)]="user.password" name="password" required>
+        <div *ngIf="passwordHasError" class="error-message">Password must be between 8 and 20 characters and contain at least one uppercase letter, one lowercase letter, one digit, and one special character.</div>
+      </div>
+      <button type="submit" class="btn btn-primary" [disabled]="!isValidUser()">Create User</button>
+      <div *ngIf="successMessage" class="success-message">{{ successMessage }}</div>
+    </form>
+  </div>
+  

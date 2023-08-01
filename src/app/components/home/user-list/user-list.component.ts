@@ -9,18 +9,22 @@ import { UserService } from 'src/app/core/services/user.service';
 export class UserListComponent implements OnInit {
   users: any[] = []; // Change the type based on your user model
   selectedUser: any; // Change the type based on your user model
+  nextUserId: number = 1; // Initialize the next available id for new users
 
   constructor(private userService: UserService) { } // Inject your user service
 
   ngOnInit() {
     this.loadUsers();
-    this.addUsersManually(); // Call the method to add users manually
   }
 
   loadUsers() {
     this.userService.getAllUsers().subscribe({
       next: (data) => {
         this.users = data; // Assign the received data to the 'users' array
+        // Update the nextUserId to be greater than the highest existing id
+        if (this.users.length > 0) {
+          this.nextUserId = Math.max(...this.users.map((user) => user.id)) + 1;
+        }
       },
       error: (error) => {
         console.log(error);
@@ -31,28 +35,4 @@ export class UserListComponent implements OnInit {
   getUserDetails(userId: number) {
     this.selectedUser = this.users.find((user) => user.id === userId);
   }
-  addUsersManually() {
-    // Manually add two users to the user list
-    const user1 = {
-      id: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-      email: 'john.doe@example.com',
-      password: 'password1',
-      tasks: []
-    };
-
-    const user2 = {
-      id: 2,
-      firstName: 'Jane',
-      lastName: 'Smith',
-      email: 'jane.smith@example.com',
-      password: 'password2',
-      tasks: []
-    };
-
-    // Add the users to the user list
-    this.users.push(user1);
-    this.users.push(user2);
-  } 
 }
