@@ -25,8 +25,20 @@ export class VariablesService {
     this.darkThemeStatus.next(darkTheme);
   }
 
-  changeCurrentUser(currentUser: User): void {
+  changeCurrentUser(currentUser: User | null): void {
     console.log('Current user changed:', currentUser);
     this.currentUserSubject.next(currentUser);
+  }
+
+  getLoggedInStatus(): boolean {
+    return this.loggedInStatus.value;
+  }
+
+  getIsDarkTheme(): boolean {
+    return this.darkThemeStatus.value;
+  }
+
+  getCurrentUser(): User | null {
+    return this.currentUserSubject.value;
   }
 }

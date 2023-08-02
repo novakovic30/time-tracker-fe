@@ -24,13 +24,16 @@ import { TaskService } from './core/services/task.service';
 import { NavBarComponent } from './components/home/nav-bar/nav-bar.component';
 import { UserListComponent } from './components/home/user-list/user-list.component';
 import { AddUserComponent } from './components/home/add-user/add-user.component';
+import { AuthGuard } from './guards/auth.guard';
 
 // Define the routes
 const routes: Routes = [
-  { path: '', component: LoginComponent }, // Set LoginComponent as the default route
-  { path: 'user-tasks', component: UserTasksComponent },
-  { path: 'user-list', component: UserListComponent },
-  { path: 'add-user', component: AddUserComponent },
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: 'login', component: LoginComponent }, // Set LoginComponent as the default route
+  { path: 'user-tasks', canActivate: [AuthGuard], component: UserTasksComponent },
+  { path: 'user-list', canActivate: [AuthGuard], component: UserListComponent },
+  { path: 'add-user', redirectTo: '/register', pathMatch: 'full' },
+  { path: 'register', canActivate: [AuthGuard], component: AddUserComponent },
   // Add other routes if needed
 ];
 
@@ -62,7 +65,7 @@ const routes: Routes = [
     BrowserAnimationsModule
   ],
   exports: [RouterModule],
-  providers: [TaskService],
+  providers: [TaskService, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

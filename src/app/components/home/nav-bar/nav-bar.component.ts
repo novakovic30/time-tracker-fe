@@ -49,7 +49,8 @@ export class NavBarComponent implements OnInit {
   }
 
   redirectToLogout(): void {
-    this.isLoggedIn = false;
+    this.variablesService.changeLoggedInStatus(false);
+    this.variablesService.changeCurrentUser(null);
     this.router.navigate(['/']);
   }
 

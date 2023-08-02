@@ -17,10 +17,10 @@ export class AddUserComponent implements OnInit {
     tasks: []
   };
 
-  firstNameHasError: boolean = false;
-  lastNameHasError: boolean = false;
-  emailHasError: boolean = false;
-  passwordHasError: boolean = false;
+  firstNameHasError: boolean = true;
+  lastNameHasError: boolean = true;
+  emailHasError: boolean = true;
+  passwordHasError: boolean = true;
   successMessage: String = '';
 
   constructor(private userService: UserService) { }
