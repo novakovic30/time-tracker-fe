@@ -3,6 +3,7 @@ import { VariablesService } from '../../../core/services/variables.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-nav-bar',
@@ -18,7 +19,7 @@ export class NavBarComponent implements OnInit {
   lastName: string = "Hawara";
   email: string = "hias.hawara@ka-bro.cum";
 
-  constructor(private modalService: NgbModal, private router: Router, private variablesService: VariablesService) {
+  constructor(private modalService: NgbModal, private router: Router, private variablesService: VariablesService, private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -49,8 +50,7 @@ export class NavBarComponent implements OnInit {
   }
 
   redirectToLogout(): void {
-    this.variablesService.changeLoggedInStatus(false);
-    this.variablesService.changeCurrentUser(null);
+    this.authService.logout();
     this.router.navigate(['/']);
   }
 

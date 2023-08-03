@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router'; // Import the RouterModule and Routes
 
@@ -25,6 +25,7 @@ import { NavBarComponent } from './components/home/nav-bar/nav-bar.component';
 import { UserListComponent } from './components/home/user-list/user-list.component';
 import { AddUserComponent } from './components/home/add-user/add-user.component';
 import { AuthGuard } from './guards/auth.guard';
+import { AuthInterceptor } from './core/services/auth.interceptor';
 
 // Define the routes
 const routes: Routes = [
@@ -65,7 +66,7 @@ const routes: Routes = [
     BrowserAnimationsModule
   ],
   exports: [RouterModule],
-  providers: [TaskService, AuthGuard],
+  providers: [TaskService, AuthGuard, {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

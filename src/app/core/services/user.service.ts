@@ -20,12 +20,11 @@ export class UserService {
     return this.http.get<User>(`${this.baseUrl}/users/GetById/${userId}`);
   }
 
-  addUser(user: User): Observable<User> {
-    return this.http.post<User>(`${this.baseUrl}/users`, user);
+  getUserByEmail(email: string): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/users/GetByEmail/${email}`);
   }
 
-  checkCredentials(email: string, password: string): Observable<User> {
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    return this.http.post<User>(this.baseUrl + "/users/CheckCredentials/", {email, password}, { headers });
+  addUser(user: User): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}/users`, user);
   }
 }

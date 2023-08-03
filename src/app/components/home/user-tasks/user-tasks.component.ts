@@ -17,9 +17,7 @@ import { User } from 'src/app/models/user.model';
 export class UserTasksComponent implements OnInit, OnDestroy {
   nextID: number = 2; // Initial value for ID of new rows
 
-  tasks: Task[] = [
-    {id: 1, title: 'Sample Title 1', description: 'Sample Description 1', created: new Date(), updated: new Date(), status: true, totalHours: 2, hours: 1, userId: 1}
-  ];
+  tasks: Task[] = [];
 
   TaskId: number = -1;
   title: string = "";
